@@ -1,0 +1,31 @@
+import numpy as np
+from sklearn.neighbors import KNeighborsClassifier
+import matplotlib.pyplot as plt
+
+
+np.random.seed(0)
+x_values=np.random.rand(100)
+print(x_values)
+
+y_labels=np.where(x_values[:50]<=.5,1,2)
+print(y_labels)
+
+
+x_train=x_values[:50].reshape(-1,1)
+print(x_train)
+y_train=y_labels
+print(y_train)
+
+x_test=x_values[50:].reshape(-1,1)
+y_actual=np.where(x_values[50:]<=0.5,1,2)
+
+
+k_values=[1,2,3,4,5,20,30]
+accuracy=[]
+for k in k_values:
+    model=KNeighborsClassifier(n_neighbors=k)
+    model.fit(x_train,y_train)
+    y_pred=model.predict(x_test)
+    acc=np.mean(y_pred==y_actual)
+    accuracy.append(acc)
+    print("K:",k,"Accuracy:",acc)
