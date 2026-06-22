@@ -1,0 +1,37 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+housing_df=pd.read_csv("Experiment1 and 2_California.csv")
+
+print("Dataset Preview\n")
+print(housing_df.head())
+
+
+
+housing_df=pd.get_dummies(housing_df,drop_first=True)
+
+correlation_matrix=housing_df.corr()
+
+
+print("\n Correlation Matrix")
+print(correlation_matrix)
+
+
+plt.figure(figsize=(14,10))
+sns.heatmap(
+    correlation_matrix,
+    cmap="coolwarm",
+    annot=True,
+    linewidth=0.5        
+)
+
+plt.title("Correlation Matrix Heatmap- California Housing Dataset")
+plt.tight_layout()
+plt.show()
+
+sns.pairplot(housing_df)
+plt.suptitle("Pair Plot california Housing Dataset")
+plt.show()
+
+
